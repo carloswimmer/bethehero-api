@@ -13,7 +13,7 @@ app.post('/users', (request, response) => {
 
   return response.json({
     evento: 'Omnistack 11.0',
-    nome: 'Carlos Wimmer'
+    nome: 'Master of Universe'
   })
 })
 
