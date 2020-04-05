@@ -19,5 +19,23 @@ module.exports = {
     })
 
     return response.json({ id })
-  } 
+  },
+
+  async delete (request, response) {
+    const { id } = request.params
+    const ong_id = request.headers.authorization
+    
+    const incident = await connection('incidents')
+      .select('ong_id')
+      .where('id', id)
+      .first()
+
+    if (incident.ong_id !== ong_id) {
+      return response.status(401).json({ error: 'Operation not permitted' })
+    }
+
+    await connection('incidents').delete().where('id', id)
+
+    return response.status(204).send()
+  }
 }
